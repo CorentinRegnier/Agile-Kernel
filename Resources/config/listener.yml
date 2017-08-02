@@ -1,0 +1,31 @@
+services:
+    agile_kernel.doctrine.listener.mapping:
+        class: AgileKernelBundle\Doctrine\MappingListener
+        arguments:
+            - "%agile_kernel.model.object_reference.class%"
+            - "%agile_kernel.model.object_reference.table%"
+        tags:
+            - { name: doctrine.event_subscriber, priority: 250 }
+
+    agile_kernel.listener.referenceable:
+        class: AgileKernelBundle\EventListener\ReferenceableListener
+        arguments:
+            - "%agile_kernel.model.object_reference.class%"
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    agile_kernel.listener.object_reference:
+        class: AgileKernelBundle\EventListener\ObjectReferenceListener
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    agile_kernel.listener.exception:
+        class: AgileKernelBundle\EventListener\ExceptionListener
+        arguments:
+            - "@agile_kernel.mailer"
+            - "%agile.developer_email%"
+            - "%agile.project_title%"
+            - "%agile.project_url%"
+            - "%agile.host_env%"
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }

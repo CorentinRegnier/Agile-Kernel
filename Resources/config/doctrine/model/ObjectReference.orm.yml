@@ -1,0 +1,18 @@
+AgileKernelBundle\Model\ObjectReference:
+    type: mappedSuperclass
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        objectClass:
+            type: text
+        objectId:
+            type: integer
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+

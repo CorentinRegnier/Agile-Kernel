@@ -1,0 +1,14 @@
+parameters:
+    agile_kernel.mailer.abstract.class: AgileKernelBundle\Mailer\AbstractMailer
+    agile_kernel.mailer.default.class: AgileKernelBundle\Mailer\DefaultMailer
+
+services:
+    agile_kernel.mailer.abstract:
+        class: "%agile_kernel.mailer.abstract.class%"
+        abstract: true
+        arguments:
+            - "@twig"
+            - "@translator"
+            - "@security.token_storage"
+            - "%agile_kernel.mailer.sender_address%"
+            - "@mailer"

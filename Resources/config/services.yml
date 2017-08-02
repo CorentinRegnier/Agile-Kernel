@@ -1,0 +1,19 @@
+services:
+    agile_kernel.templating.assets.stack:
+        class: AgileKernelBundle\Assets\AssetsStack
+        arguments:
+            - "@service_container"
+
+    agile_kernel.twig.extension.base:
+        class: AgileKernelBundle\Twig\Extension\CoreExtension
+        arguments:
+            - "@service_container"
+            - "@router"
+            - "@agile_kernel.templating.assets.stack"
+            -
+                host_env: "%agile.host_env%"
+                project_url: "%agile.project_url%"
+                project_name: "%agile.project_name%"
+                project_title: "%agile.project_title%"
+        tags:
+            - { name: twig.extension, alias: agile_kernel }

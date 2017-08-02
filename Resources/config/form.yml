@@ -1,0 +1,102 @@
+parameters:
+    agile_kernel.form.gmap.type.class: AgileKernelBundle\Form\Type\GMapType
+    agile_kernel.form.date.extension.class: AgileKernelBundle\Form\Extension\DateTypeExtension
+    agile_kernel.form.tinymce.type.class: AgileKernelBundle\Form\Type\TinymceType
+    agile_kernel.form.color.type.class: AgileKernelBundle\Form\Type\ColorType
+    agile_kernel.form.select2.type.class: AgileKernelBundle\Form\Type\Select2Type
+    agile_kernel.form.select2_ajax.type.class: AgileKernelBundle\Form\Type\Select2AjaxType
+    agile_kernel.form.select2_entity.type.class: AgileKernelBundle\Form\Type\Select2EntityType
+    agile_kernel.form.switch.type.class: AgileKernelBundle\Form\Type\SwitchType
+
+services:
+    agile_kernel.form.date.extension:
+        class: "%agile_kernel.form.date.extension.class%"
+        arguments:
+            - "@agile_kernel.templating.assets.stack"
+            - "@assets.packages"
+            - "@request_stack"
+        tags:
+            - { name: form.type_extension, alias: date, extended_type: Symfony\Component\Form\Extension\Core\Type\DateType }
+
+    agile_kernel.form.tinymce.extension_manager:
+        class: AgileKernelBundle\Form\TinyMce\ExtensionManager
+        arguments:
+            - "@assets.packages"
+
+    agile_kernel.form.tinymce.type:
+        class: "%agile_kernel.form.tinymce.type.class%"
+        arguments:
+            - "@agile_kernel.templating.assets.stack"
+            - "@assets.packages"
+            - "@router"
+            - "@agile_kernel.form.tinymce.extension_manager"
+            - "@request_stack"
+            - "%agile_kernel.form.tinymce.content_css%"
+            - "%agile_kernel.form.tinymce.configuration%"
+        tags:
+            - { name: form.type, alias: agile_tinymce }
+
+    agile_kernel.form.gmap.type:
+        class: "%agile_kernel.form.gmap.type.class%"
+        arguments:
+            - "@agile_kernel.templating.assets.stack"
+        tags:
+            - { name: form.type, alias: agile_gmap }
+
+    agile_kernel.form.color.type:
+        class: "%agile_kernel.form.color.type.class%"
+        arguments:
+            - "@agile_kernel.templating.assets.stack"
+            - "@assets.packages"
+        tags:
+            - { name: form.type, alias: agile_color }
+
+    agile_kernel.form.switch.type:
+        class: "%agile_kernel.form.switch.type.class%"
+        arguments:
+            - "@agile_kernel.templating.assets.stack"
+            - "@assets.packages"
+            - "@translator"
+        tags:
+            - { name: form.type, alias: agile_switch }
+
+    agile_kernel.form.select2.type:
+        class: "%agile_kernel.form.select2.type.class%"
+        arguments:
+            - "@agile_kernel.templating.assets.stack"
+            - "@assets.packages"
+            - "@translator"
+            - "@request_stack"
+        tags:
+            - { name: form.type, alias: agile_select2 }
+
+    agile_kernel.form.select2_entity.type:
+        class: "%agile_kernel.form.select2_entity.type.class%"
+        arguments:
+            - "@agile_kernel.templating.assets.stack"
+            - "@assets.packages"
+            - "@translator"
+            - "@request_stack"
+            - "@doctrine.orm.default_entity_manager"
+        tags:
+            - { name: form.type, alias: agile_select2 }
+
+    agile_kernel.form.select2_ajax.type:
+        class: "%agile_kernel.form.select2_ajax.type.class%"
+        arguments:
+            - "@agile_kernel.templating.assets.stack"
+            - "@assets.packages"
+            - "@translator"
+            - "@request_stack"
+            - "@doctrine.orm.default_entity_manager"
+            - "@router"
+        tags:
+            - { name: form.type, alias: agile_select2_ajax }
+
+    agile_kernel.form.tinymce.plugin.agile_templates:
+        class: AgileKernelBundle\Form\TinyMce\TemplateExtension
+        arguments:
+            - "@templating"
+            - "%agile_kernel.form.tinymce.plugin.agile_templates.templates%"
+        tags:
+            - { name: agile_kernel.tinymce_extension }

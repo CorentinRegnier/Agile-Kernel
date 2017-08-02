@@ -1,0 +1,12 @@
+{% for src in get_js_includes() %}
+    <script src="{{ src }}"></script>
+{% endfor %}
+{% set scripts %}{% spaceless %}
+        {% for v in get_js_inline_views() %}
+            {% include v %}
+        {% endfor %}
+        {{ get_js_code() }}
+    {% endspaceless %}{% endset %}
+{% if scripts is not empty %}
+    <script type="text/javascript">{{ scripts|raw }}</script>
+{% endif %}

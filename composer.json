@@ -1,0 +1,35 @@
+{
+  "name": "cregnier/agile-kernel-bundle",
+  "description": "Agile Kernel Bundle",
+  "homepage": "https://github.com/MWCorentin/Agile-Kernel",
+  "type": "symfony-bundle",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Corentin REGNIER",
+      "email": "corentin.regnier59@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "AgileKernelBundle\\": ""
+    }
+  },
+  "require": {
+    "php": ">=5.5.9",
+    "symfony/symfony": "~3.0",
+    "doctrine/orm": "^2.5",
+    "doctrine/doctrine-bundle": "^1.6",
+    "doctrine/doctrine-cache-bundle": "^1.2",
+    "symfony/monolog-bundle": "^2.8",
+    "sensio/distribution-bundle": "^5.0",
+    "sensio/framework-extra-bundle": "^3.0.2",
+    "incenteev/composer-parameter-handler": "^2.0",
+    "stof/doctrine-extensions-bundle": "^1.2"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.*"
+    }
+  }
+}

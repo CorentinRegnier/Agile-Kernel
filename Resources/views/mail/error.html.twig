@@ -1,0 +1,35 @@
+{% block body_text %}
+{% endblock %}
+
+{% block subject -%}Symfony error occured on {{ project_name }} {%- endblock %}
+
+{% block body_html -%}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>{% block title %}{% endblock %}</title>
+
+        {% block stylesheet_style %}
+            <style type="text/css">
+                html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
+                html { background: #eee; padding: 10px }
+                img { border: 0; }
+                body { width:970px; margin:0 auto; }
+                {% block css_var %}
+                {{ css|raw }}
+                {% endblock %}
+            </style>
+        {% endblock %}
+    </head>
+    <body>
+        <p style="font-weight: bold">{{ project_name }} [{{ 'now'|date('Y-m-d H:i:s') }}]</p>
+        <p>URL : <a href="{{ project_url }}">{{ project_url }}</a></p>
+        <br>
+        {% block error_content %}
+        {{ content|raw }}
+        {% endblock %}
+    </body>
+</html>
+{%- endblock %}

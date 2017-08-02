@@ -1,0 +1,82 @@
+{% block agile_gmap_widget %}
+    <div id="{{ id }}">
+        {{ form_widget(form.formatted_address) }}
+        {{ form_widget(form.street_number) }}
+        {{ form_widget(form.route) }}
+        {{ form_widget(form.locality) }}
+        {{ form_widget(form.postal_code) }}
+        {{ form_widget(form.administrative_area_level_2) }}
+        {{ form_widget(form.administrative_area_level_1) }}
+        {{ form_widget(form.country) }}
+        {{ form_widget(form.latitude) }}
+        {{ form_widget(form.longitude) }}
+    </div>
+
+    {% if app.request.xmlHttpRequest == true %}
+        <script>Agile.form.gmapAutoComplete.setup('{{ id }}');</script>
+    {% else %}
+        {{ append_js_code("$(function () {Agile.form.gmapAutoComplete.setup('" ~ id ~ "');});") }}
+    {% endif %}
+{% endblock %}
+
+{% block date_widget %}
+    {{ form_widget(form) }}
+
+    {% if app.request.xmlHttpRequest == true %}
+        <script>$('#{{ id }}').datepicker({
+                autoclose: true,
+                language: '{{ app.request.locale }}',
+                format: '{{ format }}',
+                todayHighlight: true
+            });
+        </script>
+    {% else %}
+        {{ append_js_code("$(function () {$('#" ~ id ~ "').datepicker({autoclose: true,language: '" ~  app.request.locale ~ "',format: '" ~ format ~ "',todayHighlight: true});});") }}
+    {% endif %}
+{% endblock %}
+
+{% block agile_tinymce_widget %}
+    {{ form_widget(form) }}
+
+    {% if app.request.xmlHttpRequest == true %}
+        <script>tinymce.init({{ js_options|raw }});</script>
+    {% else %}
+        {{ append_js_code("$(function () {tinymce.init(" ~ js_options|raw ~ ");});") }}
+    {% endif %}
+{% endblock %}
+
+{% block agile_color_widget %}
+    <div id="{{ id }}" class="input-group colorpicker-component">
+        {{ form_widget(form) }}
+        <span class="input-group-addon"><i></i></span>
+    </div>
+
+    {% if app.request.xmlHttpRequest == true %}
+        <script>$('#{{ id }}').colorpicker({{ js_options|raw }});</script>
+    {% else %}
+        {{ append_js_code("$(function () {$('#" ~ id ~ "').colorpicker(" ~ js_options|raw ~ ");});") }}
+    {% endif %}
+{% endblock %}
+
+{% block agile_select2_widget %}
+    {{ form_widget(form) }}
+
+    {% if app.request.xmlHttpRequest == true %}
+        <script>Agile.form.select2.setup('{{ id }}', {{ js_options|raw }});</script>
+    {% else %}
+        {{ append_js_code("$(function () {Agile.form.select2.setup('" ~ id ~ "', " ~ js_options|raw ~ ");});") }}
+    {% endif %}
+{% endblock %}
+
+{% block agile_switch_widget %}
+    <label class="switch-radio">
+        <span>{{- translation_domain is same as(false) ? label : label|trans({}, translation_domain) -}}</span>
+        <input class="switch-radio-input" type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
+    </label>
+
+    {% if app.request.xmlHttpRequest == true %}
+        <script>Agile.form.switcher.setup('{{ id }}', {{ js_options|raw }});</script>
+    {% else %}
+        {{ append_js_code("$(function () {Agile.form.switcher.setup('" ~ id ~ "', " ~ js_options|raw ~ ");});") }}
+    {% endif %}
+{% endblock %}
