@@ -1,0 +1,49 @@
+/*
+   Bootstrap datepicker
+   ========================================================================== */
+
+.datepicker {
+
+    &.datepicker-dropdown {
+        padding: 10px;
+    }
+    &.dropdown-menu {
+        border-color: $b-datepicker-border-color;
+    }
+    &.datepicker-inline {
+        border: 1px solid $b-datepicker-inline-border-color;
+        border-radius: 0;
+    }
+
+    .datepicker-switch {
+        background-color: $b-datepicker-switch-bg;
+        color: $b-datepicker-switch-color;
+        text-transform: uppercase;
+    }
+    td,
+    th {
+        border-radius: 0;
+    }
+    table {
+        background-color: $b-datepicker-table-bg;
+
+        tr td {
+
+            &.today,
+            &.today.disabled,
+            &.today.disabled:hover,
+            &.today:hover {
+                background: $b-datepicker-today-bg !important;
+                color: $b-datepicker-today-color !important;
+            }
+            &.active,
+            &.active.disabled,
+            &.active.disabled:hover,
+            &.active:hover {
+                background: $b-datepicker-day-active-bg !important;
+                color: $b-datepicker-day-active-color !important;
+                text-shadow: none !important;
+            }
+        }
+    }
+}

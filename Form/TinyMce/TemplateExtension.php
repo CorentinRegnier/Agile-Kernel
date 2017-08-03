@@ -4,9 +4,6 @@ namespace AgileKernelBundle\Form\TinyMce;
 
 use Symfony\Component\Templating\EngineInterface;
 
-/**
- * Class TemplateExtension
- */
 class TemplateExtension extends AbstractTinyMceExtension
 {
     /**

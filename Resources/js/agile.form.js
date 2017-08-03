@@ -4,30 +4,6 @@ window.Agile = window.Agile || {};
     "use strict";
 
     Agile.form = {
-        fixFormAction: function ($target, url) {
-            var $form = $target.find('form');
-            if (!$form.attr('action')) {
-                $form.attr('action', url);
-            }
-        },
-
-        preventLeave: function (message) {
-            var formDataChanged = false;
-            $(document).on('change', 'form.st-prevent-leave :input', function () {
-                if ($(this).closest('form.st-prevent-leave').find('input[type=password]').length === 0) {
-                    formDataChanged = true;
-                }
-            }).on('submit', 'form.st-prevent-leave', function () {
-                formDataChanged = false;
-            });
-
-            window.onbeforeunload = function () {
-                if (formDataChanged) {
-                    return message;
-                }
-            };
-        },
-
         gmapAutoComplete: {
             setup: function (field_id) {
                 var formComponents = {
@@ -106,7 +82,9 @@ window.Agile = window.Agile || {};
 
         select2: {
             setup: function (field_id, options) {
-                $('#' + field_id).select2(options);
+                var field = $('#' + field_id);
+                options.dropdownParent = field.parent();
+                field.select2(options);
             }
         },
 

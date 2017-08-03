@@ -1,0 +1,46 @@
+/*
+   Bootstrap switch
+   ========================================================================== */
+
+.bootstrap-switch {
+    border-radius: 0;
+
+    &.bootstrap-switch-on {
+        border-color: $b-switch-primary;
+    }
+    &.bootstrap-switch-off {
+        border-color: $b-switch-secondary;
+    }
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+    background-color: $b-switch-primary;
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
+    background-color: $b-switch-secondary;
+    color: #fff;
+}
+.bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-on,
+.bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-off,
+.bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-label {
+    font-size: 10px;
+    line-height: 1em;
+    vertical-align: middle;
+    padding: 4px 3px;
+}
+.bootstrap-switch .bootstrap-switch-handle-on,
+.bootstrap-switch .bootstrap-switch-handle-off {
+    border-radius: 0;
+}
+
+.switch-radio {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 300;
+
+    > span {
+        margin-right: 5px;
+        vertical-align: middle;
+    }
+}

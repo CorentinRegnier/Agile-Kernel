@@ -2,18 +2,15 @@
 
 namespace AgileKernelBundle\Form\Extension;
 
-use AgileKernelBundle\Assets\AssetsStack;
-use Symfony\Component\Form\AbstractTypeExtension;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\Asset\Packages;
+use AgileKernelBundle\Assets\AssetsStack;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Asset\Packages;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
-/**
- * Class DateTypeExtension
- */
 class DateTypeExtension extends AbstractTypeExtension
 {
     /**

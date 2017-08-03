@@ -5,6 +5,9 @@ form:
 
 common:
     form:
+        country:
+            placeholder: Sélectionner un pays
+
         select2:
             placeholder:
                 simple: Sélectionner un élément
@@ -14,3 +17,6 @@ common:
                 label: Non
             on:
                 label: Oui
+    mail:
+        copyright: &copy; Tous droits réservés
+        contact_info: xxx

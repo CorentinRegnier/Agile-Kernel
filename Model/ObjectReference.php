@@ -2,13 +2,19 @@
 
 namespace AgileKernelBundle\Model;
 
+use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+
 /**
  * Class ObjectReference
+ *
+ * @package AgileKernelBundle\Model
  */
 class ObjectReference implements ObjectReferenceInterface
 {
+    use Timestampable;
+
     /**
-     * @var mixed
+     * @var int
      */
     protected $id;
 
@@ -28,12 +34,7 @@ class ObjectReference implements ObjectReferenceInterface
     protected $object;
 
     /**
-     * @var \DateTime
-     */
-    protected $createdAt;
-
-    /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -96,26 +97,6 @@ class ObjectReference implements ObjectReferenceInterface
     public function setObject($object)
     {
         $this->object = $object;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     *
-     * @return $this
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -1,9 +1,11 @@
 services:
-    agile_kernel.doctrine.listener.mapping:
-        class: AgileKernelBundle\Doctrine\MappingListener
+    agile_kernel.listener.doctrine.mapping:
+        class: AgileKernelBundle\EventListener\MappingListener
         arguments:
             - "%agile_kernel.model.object_reference.class%"
             - "%agile_kernel.model.object_reference.table%"
+            - "%agile_kernel.model.object_history.class%"
+            - "%agile_kernel.model.object_history.table%"
         tags:
             - { name: doctrine.event_subscriber, priority: 250 }
 
@@ -12,12 +14,20 @@ services:
         arguments:
             - "%agile_kernel.model.object_reference.class%"
         tags:
-            - { name: doctrine.event_subscriber }
+            - { name: doctrine.event_subscriber, priority: 200 }
 
     agile_kernel.listener.object_reference:
         class: AgileKernelBundle\EventListener\ObjectReferenceListener
         tags:
             - { name: doctrine.event_subscriber }
+
+    agile_kernel.listener.historisable:
+        class: AgileKernelBundle\EventListener\HistorisableListener
+        arguments:
+            - "%agile_kernel.model.object_history.class%"
+            - "@security.token_storage"
+        tags:
+            - { name: doctrine.event_subscriber, priority: 201 }
 
     agile_kernel.listener.exception:
         class: AgileKernelBundle\EventListener\ExceptionListener

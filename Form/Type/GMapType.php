@@ -3,10 +3,10 @@ namespace AgileKernelBundle\Form\Type;
 
 use AgileKernelBundle\Assets\AssetsStack;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
  * Class GMapType
@@ -27,13 +27,13 @@ class GMapType extends AbstractType
      *
      * @param AssetsStack $assetsStack
      */
-    public function __construct(AssetsStack $assetsStack)
+    public function __construct(AssetsStack $assetsStack, $googleMapApiKey)
     {
         $this->assetsStack = $assetsStack;
 
-        if (!self::$assetsIncluded) {
+        if (false === self::$assetsIncluded) {
             self::$assetsIncluded = true;
-            $this->assetsStack->appendJavascriptInclude('//maps.googleapis.com/maps/api/js?libraries=places&sensor=true');
+            $this->assetsStack->appendJavascriptInclude('//maps.googleapis.com/maps/api/js?key='.$googleMapApiKey.'&libraries=places&sensor=true');
         }
     }
 

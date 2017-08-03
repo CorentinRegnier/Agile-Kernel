@@ -2,20 +2,22 @@
 
 namespace AgileKernelBundle\Form\Type;
 
-use AgileKernelBundle\Assets\AssetsStack;
-use AgileKernelBundle\Form\TinyMce\ExtensionManager;
-use Symfony\Component\Asset\Packages;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Asset\Packages;
+use AgileKernelBundle\Assets\AssetsStack;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\OptionsResolver\Options;
+use AgileKernelBundle\Form\TinyMce\ExtensionManager;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class TinymceType
+ *
+ * @package AgileKernelBundle\Form\Type
  */
 class TinymceType extends AbstractType
 {
@@ -90,7 +92,7 @@ class TinymceType extends AbstractType
             $this->lang = null;
         }
 
-        if (!self::$assetsIncluded) {
+        if (false === self::$assetsIncluded) {
             self::$assetsIncluded = true;
             $this->assetsStack->appendJavascriptInclude($this->assetsPackage->getUrl('bundles/agilekernel/vendor/tinymce/tinymce.min.js'));
         }
@@ -153,6 +155,7 @@ class TinymceType extends AbstractType
             'preview_styles'            => 'font-size',
             'body_id'                   => null,
             'body_class'                => null,
+            'resize'                    => 'y',
             'agile_upload'              => null,
             'extra'                     => null,
         ]);
@@ -183,6 +186,7 @@ class TinymceType extends AbstractType
             'toolbar1'                => $options['toolbar1'],
             'toolbar2'                => $options['toolbar2'],
             'fontsize_formats'        => $options['fontsize_formats'],
+            'resize'                  => $options['resize'],
             'preview_styles'          => $options['preview_styles'],
             'body_id'                 => $options['body_id'],
             'body_class'              => $options['body_class'],

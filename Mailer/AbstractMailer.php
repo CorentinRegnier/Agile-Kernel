@@ -2,13 +2,17 @@
 
 namespace AgileKernelBundle\Mailer;
 
+use \Twig_Template;
 use \Twig_Environment;
+use \InvalidArgumentException;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use \InvalidArgumentException;
 
 /**
  * Class AbstractMailer
+ *
+ * @package AgileKernelBundle\Mailer
  */
 abstract class AbstractMailer implements MailerInterface
 {
@@ -62,11 +66,13 @@ abstract class AbstractMailer implements MailerInterface
      * @param string       $templateName
      * @param array|string $toEmail
      * @param array        $params
-     * @param string|array $fromEmail
-     * @param string       $fromName
+     * @param null|string  $fromEmail
+     * @param null|string  $fromName
      * @param array        $attachments
-     * @param string|null  $locale
+     * @param null|string  $locale
      * @param array        $tags
+     *
+     * @return int
      */
     public function send(
         $templateName,
@@ -92,7 +98,7 @@ abstract class AbstractMailer implements MailerInterface
         }
 
         $context = $this->twig->mergeGlobals($params);
-        /** @var \Twig_Template $template */
+        /** @var Twig_Template $template */
         $template = $this->twig->loadTemplate($templateName);
         $subject  = $template->renderBlock('subject', $context);
         $textBody = $template->renderBlock('body_text', $context);
@@ -102,21 +108,24 @@ abstract class AbstractMailer implements MailerInterface
             $this->translator->setLocale($originalLocale);
         }
 
-        $this->sendMessage($subject, $htmlBody, $textBody, $fromEmail, $fromName, $toEmail, $attachments, $tags);
+        return $this->sendMessage($subject, $htmlBody, $textBody, $fromEmail, $fromName, $toEmail, $attachments, $tags);
     }
 
     /**
-     * @param string       $templateName
-     * @param array        $params
-     * @param User         $user
-     * @param array|string $fromEmail
-     * @param array        $attachments
-     * @param array        $tags
+     * @param string        $templateName
+     * @param array         $params
+     * @param UserInterface $user
+     * @param null|string   $fromEmail
+     * @param null|string   $fromName
+     * @param array         $attachments
+     * @param array         $tags
+     *
+     * @return int
      */
     public function sendToUser(
         $templateName,
         array $params = [],
-        User $user = null,
+        UserInterface $user = null,
         $fromEmail = null,
         $fromName = null,
         array $attachments = [],
@@ -124,7 +133,7 @@ abstract class AbstractMailer implements MailerInterface
     ) {
         if (null === $user) {
             $user = $this->getUser();
-            if (!$user instanceof User) {
+            if (!$user instanceof UserInterface) {
                 throw new InvalidArgumentException('User is not defined for mail');
             }
         }
@@ -135,13 +144,13 @@ abstract class AbstractMailer implements MailerInterface
             $locale = null;
         }
 
-        $this->send($templateName, $user->getEmail(), array_merge([
+        return $this->send($templateName, $user->getEmail(), array_merge([
             'user' => $user,
         ], $params), $fromEmail, $fromName, $attachments, $locale, $tags);
     }
 
     /**
-     * @return null|User
+     * @return null|UserInterface
      */
     private function getUser()
     {

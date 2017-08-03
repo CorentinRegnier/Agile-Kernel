@@ -2,9 +2,6 @@
 
 namespace AgileKernelBundle\Form\TinyMce;
 
-/**
- * Interface TinyMceExtensionInterface
- */
 interface TinyMceExtensionInterface
 {
     /**

@@ -4,17 +4,19 @@ namespace AgileKernelBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
 use AgileKernelBundle\Util\Javascript;
-use AgileKernelBundle\Assets\AssetsStack;
-use Symfony\Component\Asset\Packages;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\Asset\Packages;
+use AgileKernelBundle\Assets\AssetsStack;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class Select2AjaxType
+ *
+ * @package AgileKernelBundle\Form\Type
  */
 class Select2AjaxType extends Select2EntityType
 {
@@ -72,6 +74,8 @@ class Select2AjaxType extends Select2EntityType
             'maximumSelectionLength'  => $options['maximum_selection_length'],
             'minimumResultsForSearch' => $options['minimum_results_for_search'],
             'language'                => $options['language'],
+            'containerCssClass'       => $options['container_css_class'],
+            'dropdownCssClass'        => $options['dropdown_css_class'],
             'ajax'                    => [
                 'url'            => $remotePath,
                 'delay'          => $options['delay'],

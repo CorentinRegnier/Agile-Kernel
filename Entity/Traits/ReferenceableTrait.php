@@ -3,16 +3,11 @@
 namespace AgileKernelBundle\Entity\Traits;
 
 use AgileKernelBundle\Model\ObjectReferenceInterface;
-use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Trait ReferenceableTrait
- */
 trait ReferenceableTrait
 {
     /**
      * @var ObjectReferenceInterface
-     * @ORM\OneToOne(targetEntity="AgileKernelBundle\Model\ObjectReference")
      */
     protected $objectReference;
 

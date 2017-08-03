@@ -2,26 +2,26 @@
 
 namespace AgileKernelBundle\Manager;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
- * Class AbstractBaseManager
+ * AbstractBaseManager
  */
 class AbstractBaseManager
 {
-    protected $em;
+    protected $om;
     protected $repository;
     protected $class;
 
     /**
-     * @param EntityManager $entityManager
+     * @param ObjectManager $objectManager
      * @param string        $class
      */
-    public function __construct(EntityManager $entityManager, $class)
+    public function __construct(ObjectManager $objectManager, $class)
     {
-        $this->em = $entityManager;
+        $this->om = $objectManager;
         $this->setRepository($class);
-        $this->class = $entityManager->getClassMetadata($class)->getName();
+        $this->class = $objectManager->getClassMetadata($class)->getName();
     }
 
     /**
@@ -45,7 +45,7 @@ class AbstractBaseManager
      */
     public function setRepository($entityClass)
     {
-        $this->repository = $this->em->getRepository($entityClass);
+        $this->repository = $this->om->getRepository($entityClass);
     }
 
     /**
@@ -53,8 +53,8 @@ class AbstractBaseManager
      */
     public function save($entity)
     {
-        $this->em->persist($entity);
-        $this->em->flush();
+        $this->om->persist($entity);
+        $this->om->flush();
     }
 
     /**
@@ -62,7 +62,7 @@ class AbstractBaseManager
      */
     public function remove($entity)
     {
-        $this->em->remove($entity);
-        $this->em->flush();
+        $this->om->remove($entity);
+        $this->om->flush();
     }
 }

@@ -11,4 +11,5 @@ services:
             - "@translator"
             - "@security.token_storage"
             - "%agile_kernel.mailer.sender_address%"
+            - "%agile_kernel.mailer.sender_name%"
             - "@mailer"
