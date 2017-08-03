@@ -1,5 +1,5 @@
 {
-  "name": "mw/core-bundle",
+  "name": "cregnier/kernel-bundle",
   "description": "Agile Kernel Bundle",
   "homepage": "https://github.com/MWCorentin/Agile-Kernel",
   "type": "symfony-bundle",

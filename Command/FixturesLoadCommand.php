@@ -25,7 +25,7 @@ class FixturesLoadCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('mw:fixtures:load')
+            ->setName('fixtures:load')
             ->setDescription('Load data fixtures')
             ->addOption(
                 '--force',
@@ -60,6 +60,7 @@ class FixturesLoadCommand extends ContainerAwareCommand
             '--no-interaction' => null,
         ]);
         $command = $this->getApplication();
+
         return $command->run($input, $output);
     }
 }
