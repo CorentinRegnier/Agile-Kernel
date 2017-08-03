@@ -15,7 +15,7 @@ Step 1: Download AgileKernelBundle using composer
 
 Require the bundle with composer:
 ```bash
-    $ composer require cregnier/kernel-bundle "4.0.*"
+    $ composer require cregnier/kernel-bundle "1.0.*"
 ```
 Composer will install the bundle to your project's ``vendor/cregnier/kernel-bundle`` directory.
 
