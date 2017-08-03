@@ -124,8 +124,7 @@ You can pass an array tags (used for tracking) as last argument. Right now, it's
 In order to test your mail configuration you can send test mails with the command `agile:mailer:send`:
 
 ```bash
-$ bin/console agile:mailer:send xxx@mentalworks.fr 'AgileKernelBundle:mail:test.html.twig' -a /path/to/attached-file
-.pdf -t tag1 -t tag2
+$ bin/console agile:mailer:send xxx@mentalworks.fr 'AgileKernelBundle:mail:test.html.twig' -a /path/to/attached-file.pdf -t tag1 -t tag2
 ```
 
 [Return to index](index.md)

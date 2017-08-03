@@ -20,18 +20,25 @@
 {% endblock %}
 
 {% block date_widget %}
-    {{ form_widget(form) }}
+    <div class="input-group date datepicker-input">
+        {{ form_widget(form) }}
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    </div>
 
     {% if app.request.xmlHttpRequest == true %}
-        <script>$('#{{ id }}').datepicker({
+        <script>
+            $('#{{ id }}').datepicker({
                 autoclose: true,
                 language: '{{ app.request.locale }}',
                 format: '{{ format }}',
                 todayHighlight: true
             });
+            $('#{{ id }}').next('.input-group-addon').on('click', function () {
+                $('#{{ id }}').datepicker('show');
+            });
         </script>
     {% else %}
-        {{ append_js_code("$(function () {$('#" ~ id ~ "').datepicker({autoclose: true,language: '" ~  app.request.locale ~ "',format: '" ~ format ~ "',todayHighlight: true});});") }}
+        {{ append_js_code("$(function () {$('#" ~ id ~ "').datepicker({autoclose: true,language: '" ~  app.request.locale ~ "',format: '" ~ format ~ "',todayHighlight: true});  $('#" ~ id ~ "').next('.input-group-addon').on('click', function () { $('#" ~ id ~ "').datepicker('show'); });});") }}
     {% endif %}
 {% endblock %}
 
@@ -71,12 +78,23 @@
 {% block agile_switch_widget %}
     <label class="switch-radio">
         <span>{{- translation_domain is same as(false) ? label : label|trans({}, translation_domain) -}}</span>
-        <input class="switch-radio-input" type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
+        <input class="switch-radio-input"
+               type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
     </label>
 
     {% if app.request.xmlHttpRequest == true %}
         <script>Agile.form.switcher.setup('{{ id }}', {{ js_options|raw }});</script>
     {% else %}
         {{ append_js_code("$(function () {Agile.form.switcher.setup('" ~ id ~ "', " ~ js_options|raw ~ ");});") }}
+    {% endif %}
+{% endblock %}
+
+{% block agile_country_widget %}
+    {{ form_widget(form) }}
+
+    {% if app.request.xmlHttpRequest == true %}
+        <script>Agile.form.select2.setup('{{ id }}', {{ js_options|raw }});</script>
+    {% else %}
+        {{ append_js_code("$(function () {Agile.form.select2.setup('" ~ id ~ "', " ~ js_options|raw ~ ");});") }}
     {% endif %}
 {% endblock %}

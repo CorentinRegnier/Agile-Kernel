@@ -2,11 +2,11 @@
 
 namespace AgileKernelBundle\EventListener;
 
+use Doctrine\ORM\Events;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Events;
-use AgileKernelBundle\Model\ObjectReferenceInterface;
 use AgileKernelBundle\Model\ReferenceableInterface;
+use AgileKernelBundle\Model\ObjectReferenceInterface;
 
 /**
  * Class ReferenceableListener

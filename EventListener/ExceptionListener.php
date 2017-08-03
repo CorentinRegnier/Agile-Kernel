@@ -3,8 +3,8 @@
 namespace AgileKernelBundle\EventListener;
 
 use AgileKernelBundle\Mailer\MailerInterface;
-use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\Debug\ExceptionHandler;
+use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
 /**
@@ -73,22 +73,20 @@ class ExceptionListener
             return;
         }
 
-        if ('prod' === $this->env) {
-            $this->mailer->send(
-                'AgileKernelBundle:mail:error.html.twig',
-                $this->developerEmail,
-                [
-                    'css'          => $handler->getStylesheet($flatten),
-                    'content'      => $handler->getContent($flatten),
-                    'project_name' => $this->projectTitle,
-                    'project_url'  => $prefix.'://'.$domain.$uri,
-                ],
-                'no-reply@'.$domain,
-                $this->projectTitle,
-                [],
-                null,
-                ['core:error']
-            );
-        }
+        $this->mailer->send(
+            'AgileKernelBundle:mail:error.html.twig',
+            $this->developerEmail,
+            [
+                'css'          => $handler->getStylesheet($flatten),
+                'content'      => $handler->getContent($flatten),
+                'project_name' => $this->projectTitle,
+                'project_url'  => $prefix.'://'.$domain.$uri,
+            ],
+            'no-reply@'.$domain,
+            $this->projectTitle,
+            [],
+            null,
+            ['core:error']
+        );
     }
 }

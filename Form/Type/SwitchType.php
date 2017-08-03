@@ -2,20 +2,20 @@
 
 namespace AgileKernelBundle\Form\Type;
 
-use AgileKernelBundle\Assets\AssetsStack;
 use AgileKernelBundle\Util\Javascript;
-use Symfony\Component\Asset\Packages;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\Asset\Packages;
+use AgileKernelBundle\Assets\AssetsStack;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 
 /**
  * Class SwitchType
+ *
+ * @package AgileKernelBundle\Form\Type
  */
 class SwitchType extends AbstractType
 {
@@ -39,8 +39,9 @@ class SwitchType extends AbstractType
     /**
      * SwitchType constructor.
      *
-     * @param AssetsStack $assetsStack
-     * @param Packages    $assetsPackage
+     * @param AssetsStack         $assetsStack
+     * @param Packages            $assetsPackage
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         AssetsStack $assetsStack,
@@ -51,7 +52,7 @@ class SwitchType extends AbstractType
         $this->assetsPackage = $assetsPackage;
         $this->translator    = $translator;
 
-        if (!self::$assetsIncluded) {
+        if (false === self::$assetsIncluded) {
             self::$assetsIncluded = true;
             $this->assetsStack->appendCSSInclude($this->assetsPackage->getUrl('bundles/agilekernel/vendor/bootstrap-switch/bootstrap-switch.min.css'));
             $this->assetsStack->appendJavascriptInclude($this->assetsPackage->getUrl('bundles/agilekernel/vendor/bootstrap-switch/bootstrap-switch.min.js'));
@@ -80,17 +81,15 @@ class SwitchType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+
+        $onText  = $this->translator->trans('common.form.switch.on.label', [], 'AgileKernelBundle');
+        $offText = $this->translator->trans('common.form.switch.off.label', [], 'AgileKernelBundle');
         $resolver->setDefaults([
-            'translation_domain' => 'AgileKernelBundle',
-            'required'           => false,
-            'size'               => 'mini',
-            'onText'             => function (Options $options) {
-                return $this->translator->trans('common.form.switch.on.label', [], $options['translation_domain']);
-            },
-            'offText'            => function (Options $options) {
-                return $this->translator->trans('common.form.switch.off.label', [], $options['translation_domain']);
-            },
-            'radioAllOff'        => true,
+            'required'    => false,
+            'size'        => 'mini',
+            'onText'      => $onText,
+            'offText'     => $offText,
+            'radioAllOff' => true,
         ]);
     }
 

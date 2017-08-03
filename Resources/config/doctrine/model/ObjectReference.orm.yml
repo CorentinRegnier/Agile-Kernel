@@ -10,9 +10,4 @@ AgileKernelBundle\Model\ObjectReference:
             type: text
         objectId:
             type: integer
-        createdAt:
-            type: datetime
-            gedmo:
-                timestampable:
-                    on: create
 

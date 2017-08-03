@@ -1,5 +1,6 @@
 {% block content_text %}{% endblock %}
 {% block content_html %}{% endblock %}
+{% block background_color %}afafaf{% endblock %}
 
 {% block body_text -%}
     {%- set _text_content -%}
@@ -11,6 +12,7 @@
             {% include 'AgileKernelBundle:mail:signature.txt.twig' %}
         {%- endblock %}
     {%- endif -%}
+
 {%- endblock %}
 
 {% block body_html -%}
@@ -20,120 +22,42 @@
         {% endspaceless %}
     {%- endset -%}
     {%- if _html_content -%}
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-        <html xmlns="http://www.w3.org/1999/xhtml">
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html>
         <head>
+            <title>{{ agile.project_title }}</title>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <title>{% block title %}{% endblock %}</title>
-
-            {% block stylesheet_style %}
-                <style type="text/css">
-                    #outlook a {
-                        padding: 0;
-                    }
-
-                    body {
-                        width: 100% !important;
-                        -webkit-text-size-adjust: 100%;
-                        -ms-text-size-adjust: 100%;
-                        margin: 0;
-                        padding: 0;
-                    }
-
-                    #backgroundTable {
-                        margin: 0;
-                        padding: 0;
-                        width: 100% !important;
-                        line-height: 100% !important;
-                    }
-
-                    img {
-                        outline: none;
-                        text-decoration: none;
-                        -ms-interpolation-mode: bicubic;
-                    }
-
-                    a img {
-                        border: none;
-                    }
-
-                    p {
-                        margin: 1em 0;
-                    }
-
-                    h1, h2, h3, h4, h5, h6 {
-                        color: black !important;
-                    }
-
-                    h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
-                        color: blue !important;
-                    }
-
-                    h1 a:active, h2 a:active, h3 a:active, h4 a:active, h5 a:active, h6 a:active {
-                        color: red !important;
-                    }
-
-                    h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
-                        color: purple !important;
-                    }
-
-                    table td {
-                        border-collapse: collapse;
-                    }
-
-                    table {
-                        border-collapse: collapse;
-                        mso-table-lspace: 0pt;
-                        mso-table-rspace: 0pt;
-                    }
-
-                    a {
-                        color: #00b9e4;
-                    }
-
-                    @media only screen and (max-device-width: 480px) {
-                        a[href^="tel"], a[href^="sms"] {
-                            text-decoration: none;
-                            color: blue;
-                            pointer-events: none;
-                            cursor: default;
-                        }
-
-                        .mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
-                            text-decoration: default;
-                            color: orange !important;
-                            pointer-events: auto;
-                            cursor: default;
-                        }
-
-                    }
-
-                    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-                        a[href^="tel"], a[href^="sms"] {
-                            text-decoration: none;
-                            color: blue;
-                            pointer-events: none;
-                            cursor: default;
-                        }
-
-                        .mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
-                            text-decoration: default;
-                            color: orange !important;
-                            pointer-events: auto;
-                            cursor: default;
-                        }
-                    }
-                </style>
-            {% endblock %}
         </head>
-        <body>
+        <body style="font-family: Arial, Helvetica, sans-serif; margin: 0;background-color: #f1f1f1;color:#000;">
+
         {% block inner_body_html %}
-            <table cellpadding="0" cellspacing="0" border="0" id="backgroundTable">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
                 <tr>
-                    <td valign="top">
+                    <td width="100%" height="135" bgcolor="#{{ block('background_color') }}" valign="middle" style="padding: 0 25px">
+                        <table width="600" border="0" cellpadding="0" cellspacing="0" align="center">
+                            <tr>
+                                <td width="600" height="135" bgcolor="#{{ block('background_color') }}" valign="middle" style="padding: 0 25px">
+                                    <a href="{{ url('homepage') }}">
+                                        <img src="{{ agile.project_url ~ 'img/logo-mail.png' }}" alt="{{ agile
+                                        .project_title }}" style="display: block;border:0;">
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <table width="600" border="0" cellpadding="0" cellspacing="0" align="center">
+                <tr>
+                    <td width="600" style="padding: 30px 25px 25px;font-size: 16px;color: #666666;background-color:#fff;">
                         {{ _html_content }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="600" bgcolor="#f1f1f1" style="font-size: 14px;color: #000!important;padding: 15px 0 25px;">
                         {% block html_signature %}
                             {% include 'AgileKernelBundle:mail:signature.html.twig' %}
                         {%- endblock %}

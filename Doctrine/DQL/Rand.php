@@ -7,9 +7,6 @@ use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\SqlWalker;
 use Doctrine\ORM\Query\Parser;
 
-/**
- * Class Rand
- */
 class Rand extends FunctionNode
 {
     public function getSql(SqlWalker $sqlWalker)

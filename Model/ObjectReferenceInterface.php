@@ -1,8 +1,11 @@
 <?php
+
 namespace AgileKernelBundle\Model;
 
 /**
  * Class ObjectReference
+ *
+ * @package AgileKernelBundle\Model
  */
 interface ObjectReferenceInterface
 {
@@ -46,16 +49,4 @@ interface ObjectReferenceInterface
      * @return $this
      */
     public function setObject($object);
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt();
-
-    /**
-     * @param \DateTime $createdAt
-     *
-     * @return $this
-     */
-    public function setCreatedAt($createdAt);
 }

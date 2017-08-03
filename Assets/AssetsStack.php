@@ -2,25 +2,23 @@
 
 namespace AgileKernelBundle\Assets;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use AgileKernelBundle\Assets\Extension\AssetsExtensionInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class AssetsStack
+ *
+ * @package AgileKernelBundle\Assets
  */
 class AssetsStack
 {
     use ContainerAwareTrait;
 
     private $javascriptIncludes = [];
-
     private $javascriptCode = [];
-
     private $cssIncludes = [];
-
     private $jsInlineViews = [];
-
     private $jsViews = [];
 
     /**

@@ -2,12 +2,9 @@
 
 namespace AgileKernelBundle\Form\TinyMce;
 
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
-/**
- * Class ExtensionManager
- */
 class ExtensionManager
 {
     /**
@@ -47,7 +44,7 @@ class ExtensionManager
         if (null === $this->plugins) {
             $this->plugins = [];
 
-            foreach ($this->extensions as $name => $extension) {
+            foreach ($this->extensions as $extension) {
                 foreach ($extension->getPlugins() as $name => $path) {
                     $this->plugins[$name] = $this->assetsPackage->getUrl($path);
                 }

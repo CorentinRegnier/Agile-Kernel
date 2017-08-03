@@ -2,10 +2,9 @@
 
 namespace AgileKernelBundle\EventListener;
 
-use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Util\ClassUtils;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
+use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use AgileKernelBundle\Model\ObjectReferenceInterface;
 
 class ObjectReferenceListener implements EventSubscriber
@@ -13,7 +12,7 @@ class ObjectReferenceListener implements EventSubscriber
     public function getSubscribedEvents()
     {
         return [
-            Events::postLoad => 'postLoad'
+            Events::postLoad => 'postLoad',
         ];
     }
 

@@ -4,6 +4,8 @@ namespace AgileKernelBundle\Model;
 
 /**
  * Interface ReferenceableInterface
+ *
+ * @package AgileKernelBundle\Model
  */
 interface ReferenceableInterface
 {

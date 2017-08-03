@@ -2,18 +2,20 @@
 
 namespace AgileKernelBundle\Command;
 
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 /**
  * Class FixturesLoadCommand
+ *
+ * @package AgileKernelBundle\Command
  */
 class FixturesLoadCommand extends ContainerAwareCommand
 {
@@ -36,7 +38,8 @@ class FixturesLoadCommand extends ContainerAwareCommand
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @throws \Exception
+     *
+     * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -57,6 +60,6 @@ class FixturesLoadCommand extends ContainerAwareCommand
             '--no-interaction' => null,
         ]);
         $command = $this->getApplication();
-        $command->run($input, $output);
+        return $command->run($input, $output);
     }
 }

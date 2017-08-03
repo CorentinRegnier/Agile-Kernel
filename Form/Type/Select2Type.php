@@ -3,19 +3,21 @@
 namespace AgileKernelBundle\Form\Type;
 
 use AgileKernelBundle\Util\Javascript;
-use Symfony\Component\Form\AbstractType;
-use AgileKernelBundle\Assets\AssetsStack;
-use Symfony\Component\Asset\Packages;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\Asset\Packages;
+use AgileKernelBundle\Assets\AssetsStack;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class Select2Type
+ *
+ * @package AgileKernelBundle\Form\Type
  */
 class Select2Type extends AbstractType
 {
@@ -61,7 +63,7 @@ class Select2Type extends AbstractType
         $this->requestStack  = $requestStack;
         $locale              = strtolower($this->requestStack->getCurrentRequest()->getLocale());
 
-        if (!self::$assetsIncluded) {
+        if (false === self::$assetsIncluded) {
             self::$assetsIncluded = true;
             $this->assetsStack->appendCSSInclude($this->assetsPackage->getUrl('bundles/agilekernel/vendor/select2/css/select2.min.css'));
             $this->assetsStack->appendJavascriptInclude($this->assetsPackage->getUrl('bundles/agilekernel/vendor/select2/js/select2.full.min.js'));
@@ -79,11 +81,14 @@ class Select2Type extends AbstractType
         $jsOptions = [
             'multiple'                => $options['multiple'],
             'allowClear'              => $options['allow_clear'],
+            'tags'                    => $options['tags'],
             'minimumInputLength'      => $options['minimum_input_length'],
             'maximumInputLength'      => $options['maximum_input_length'],
             'maximumSelectionLength'  => $options['maximum_selection_length'],
             'minimumResultsForSearch' => $options['minimum_results_for_search'],
             'language'                => $options['language'],
+            'containerCssClass'       => $options['container_css_class'],
+            'dropdownCssClass'        => $options['dropdown_css_class'],
         ];
 
         $view->vars['js_options'] = Javascript::encodeJS($jsOptions, true);
@@ -113,8 +118,11 @@ class Select2Type extends AbstractType
             'minimum_input_length'       => null,
             'maximum_input_length'       => null,
             'maximum_selection_length'   => null,
-            'minimum_results_for_search' => null,
+            'minimum_results_for_search' => '-1',
             'allow_clear'                => false,
+            'tags'                       => false,
+            'container_css_class'        => null,
+            'dropdown_css_class'         => null,
             'language'                   => 'fr',
         ]);
     }

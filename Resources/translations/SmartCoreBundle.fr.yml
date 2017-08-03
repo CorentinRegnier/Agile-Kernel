@@ -1,0 +1,22 @@
+form:
+    gmap:
+        autocomplete:
+            placeholder: Saisissez une adresse ...
+
+common:
+    form:
+        country:
+            placeholder: Sélectionner un pays
+
+        select2:
+            placeholder:
+                simple: Sélectionner un élément
+                multiple: Sélectionner des éléments
+        switch:
+            off:
+                label: Non
+            on:
+                label: Oui
+    mail:
+        copyright: &copy; Tous droits réservés
+        contact_info: xxx

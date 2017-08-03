@@ -4,6 +4,8 @@ namespace AgileKernelBundle\Form\TinyMce;
 
 /**
  * Class AbstractTinyMceExtension
+ *
+ * @package AgileKernelBundle\Form\TinyMce
  */
 abstract class AbstractTinyMceExtension implements TinyMceExtensionInterface
 {

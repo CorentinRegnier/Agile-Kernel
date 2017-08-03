@@ -57,7 +57,9 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('object_reference_class')->defaultValue('AgileKernelBundle\Model\ObjectReference')->cannotBeEmpty()->end()
-                        ->scalarNode('object_reference_table')->defaultValue('object_reference')->cannotBeEmpty()->end()
+                        ->scalarNode('object_reference_table')->defaultValue('object_references')->cannotBeEmpty()->end()
+                        ->scalarNode('object_history_class')->defaultValue('AgileKernelBundle\Model\ObjectHistory')->cannotBeEmpty()->end()
+                        ->scalarNode('object_history_table')->defaultValue('object_histories')->cannotBeEmpty()->end()
                     ->end()
                 ->end()
                 ->arrayNode('form')
@@ -92,6 +94,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->scalarNode('logout_route')->defaultValue('fos_user_security_logout')->cannotBeEmpty()->end()
+                ->scalarNode('google_map_api_key')->defaultNull()->cannotBeEmpty()->end()
             ->end();
         return $treeBuilder;
     }

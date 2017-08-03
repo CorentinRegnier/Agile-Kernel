@@ -20,7 +20,7 @@ alert: 'warning'
                 {% if close_button %}
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                 {% endif %}
-                {{ message|trans({}, translation_domain) }}
+                {{ message }}
             </div>
         {% endif %}
     {% endfor %}

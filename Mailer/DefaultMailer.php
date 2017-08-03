@@ -4,13 +4,15 @@ namespace AgileKernelBundle\Mailer;
 
 use \Swift_Mailer;
 use \Swift_Message;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 use \Twig_Environment;
 use \Swift_Attachment;
+use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class DefaultMailer
+ *
+ * @package AgileKernelBundle\Mailer
  */
 class DefaultMailer extends AbstractMailer
 {
@@ -49,12 +51,13 @@ class DefaultMailer extends AbstractMailer
         TranslatorInterface $translator,
         TokenStorageInterface $security,
         $fromEmail,
+        $fromName,
         Swift_Mailer $swiftMailer,
         $mailerHost,
         $projectName,
         $hostEnv
     ) {
-        parent::__construct($twig, $translator, $security, $fromEmail, '');
+        parent::__construct($twig, $translator, $security, $fromEmail, $fromName);
         $this->swiftMailer = $swiftMailer;
         $this->mailerHost  = $mailerHost;
         $this->projectName = $projectName;
@@ -70,6 +73,8 @@ class DefaultMailer extends AbstractMailer
      * @param string $toEmail
      * @param array  $attachments
      * @param array  $tags
+     *
+     * @return int
      */
     public function sendMessage(
         $subject,
@@ -100,7 +105,7 @@ class DefaultMailer extends AbstractMailer
 
         $this->handleTags($message, $tags);
 
-        $this->swiftMailer->send($message);
+        return $this->swiftMailer->send($message);
     }
 
     /**

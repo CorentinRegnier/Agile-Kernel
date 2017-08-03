@@ -2,14 +2,13 @@
 
 namespace AgileKernelBundle\Form\Type;
 
-use AgileKernelBundle\Assets\AssetsStack;
-use Symfony\Component\Asset\Packages;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\Asset\Packages;
+use AgileKernelBundle\Assets\AssetsStack;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * Class ColorType
@@ -43,7 +42,7 @@ class ColorType extends AbstractType
         $this->assetsStack   = $assetsStack;
         $this->assetsPackage = $assetsPackage;
 
-        if (!self::$assetsIncluded) {
+        if (false === self::$assetsIncluded) {
             self::$assetsIncluded = true;
             $this->assetsStack->appendCSSInclude($this->assetsPackage->getUrl('bundles/agilekernel/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css'));
             $this->assetsStack->appendJavascriptInclude($this->assetsPackage->getUrl('bundles/agilekernel/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js'));

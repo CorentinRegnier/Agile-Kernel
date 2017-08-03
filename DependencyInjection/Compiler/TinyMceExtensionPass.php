@@ -2,9 +2,9 @@
 
 namespace AgileKernelBundle\DependencyInjection\Compiler;
 
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class TinyMceExtensionPass
@@ -20,7 +20,7 @@ class TinyMceExtensionPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('agile_kernel.form.tinymce.extension_manager')) {
+        if (false === $container->hasDefinition('agile_kernel.form.tinymce.extension_manager')) {
             return;
         }
 

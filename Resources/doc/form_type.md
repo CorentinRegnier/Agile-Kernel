@@ -56,7 +56,7 @@ public function buildForm(FormBuilderInterface $builder, array $options)
             ->add('enabled', SwitchType::class)
 ```
 
-### Tinymce Form Type
+### TinyMce Form Type
 
 ```php
 # /src/AppBundle/Form/Type/CarType.php

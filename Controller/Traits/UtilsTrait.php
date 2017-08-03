@@ -2,13 +2,18 @@
 
 namespace AgileKernelBundle\Controller\Traits;
 
+use LogicException;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use FOS\UserBundle\Model\UserInterface as User;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface as User;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 trait UtilsTrait
 {
     /**
      * @param bool $strict
+     *
      * @return User
      * @throws AccessDeniedException
      */
@@ -24,30 +29,44 @@ trait UtilsTrait
 
     /**
      * @return User
-     * @throws \LogicException
+     * @throws LogicException
      */
     protected function doGetUser()
     {
-        if(!$this->container->has('security.token_storage')){
-            throw new \LogicException('The SecurityBundle is not registered in your application.');
+        if (!$this->has('security.token_storage')) {
+            throw new LogicException('The SecurityBundle is not registered in your application.');
         }
 
-        if (null === $token = $this->container->get('security.token_storage')->getToken()) {
-            return;
+        /** @var TokenStorageInterface $securityTokenStorage */
+        $securityTokenStorage = $this->get('security.token_storage');
+        if (null === $token = $securityTokenStorage->getToken()) {
+            return null;
         }
 
         if (!is_object($user = $token->getUser())) {
-            return;
+            return null;
         }
 
         return $user;
     }
 
+    /**
+     * @param string $type
+     * @param string $message
+     * @param bool   $translate
+     * @param array  $parameters
+     * @param null   $translationDomain
+     */
     public function addFlash($type, $message, $translate = true, array $parameters = [], $translationDomain = null)
     {
         if ($translate) {
-            $message = $this->container->get('translator')->trans($message, $parameters, $translationDomain);
+            /** @var TranslatorInterface $translator */
+            $translator = $this->get('translator');
+            $message    = $translator->trans($message, $parameters, $translationDomain);
         }
-        $this->container->get('session')->getFlashBag()->add($type, $message);
+
+        /** @var Session $session */
+        $session = $this->get('session');
+        $session->getFlashBag()->add($type, $message);
     }
 }

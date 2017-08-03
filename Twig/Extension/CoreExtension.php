@@ -2,14 +2,16 @@
 
 namespace AgileKernelBundle\Twig\Extension;
 
-use AgileKernelBundle\Assets\AssetsStack;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Intl;
+use AgileKernelBundle\Assets\AssetsStack;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class CoreExtension
+ *
+ * @package AgileKernelBundle\Twig\Extension
  */
 class CoreExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
@@ -42,7 +44,7 @@ class CoreExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
         ContainerInterface $container,
         UrlGeneratorInterface $generator,
         AssetsStack $assetsStack,
-        array $agileGlobals
+        $agileGlobals
     ) {
         $this->container    = $container;
         $this->generator    = $generator;
@@ -65,10 +67,6 @@ class CoreExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('ucfirst', [$this, 'ucfirst']),
-            new \Twig_SimpleFilter('floor', [$this, 'floor']),
-            new \Twig_SimpleFilter('ceil', [$this, 'ceil']),
-            new \Twig_SimpleFilter('json_encode', [$this, 'jsonEncode']),
             new \Twig_SimpleFilter('is_numeric', [$this, 'isNumeric']),
             new \Twig_SimpleFilter('localizeddate', [$this, 'localizedDateFilter'], ['needs_environment' => true]),
         ];
@@ -92,9 +90,7 @@ class CoreExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
             new \Twig_SimpleFunction('get_js_includes', [$this->assetsStack, 'getJavascriptIncludes']),
             new \Twig_SimpleFunction('get_js_inline_views', [$this->assetsStack, 'getJavascriptInlineViews']),
             new \Twig_SimpleFunction('get_css_includes', [$this->assetsStack, 'getCSSIncludes']),
-            new \Twig_SimpleFunction('now', [$this, 'now']),
             new \Twig_SimpleFunction('get_available_locales', [$this, 'getAvailableLocales']),
-            new \Twig_SimpleFunction('change_locale_url', [$this, 'getChangeLocaleUrl']),
             new \Twig_SimpleFunction('translate_locale', [$this, 'getLocaleTranslation']),
             new \Twig_SimpleFunction('uri_replace_query', [$this, 'getUriReplaceQuery']),
             new \Twig_SimpleFunction('route_exist', [$this, 'getRouteExist']),
@@ -118,22 +114,6 @@ class CoreExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
     public function getAvailableLocales()
     {
         return $this->container->getParameter('agile_kernel.locales');
-    }
-
-    /**
-     * @param string $locale
-     *
-     * @return string
-     */
-    public function getChangeLocaleUrl($locale)
-    {
-        /** @var Request $request */
-        $request = $this->container->get('request_stack')->getMasterRequest();
-
-        return $this->generator->generate('agile_kernel_change_locale', [
-            'locale' => $locale,
-            'r'      => $request->getRequestUri(),
-        ]);
     }
 
     /**
@@ -164,14 +144,6 @@ class CoreExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
         $routes = $this->container->get('router')->getRouteCollection();
 
         return ($routes->get($routeName) === null) ? false : true;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function now()
-    {
-        return new \DateTime();
     }
 
     /**
@@ -229,51 +201,11 @@ class CoreExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
     /**
      * @param string $string
      *
-     * @return string
-     */
-    public function ucfirst($string)
-    {
-        return ucfirst($string);
-    }
-
-    /**
-     * @param string $string
-     *
-     * @return string
-     */
-    public function floor($string)
-    {
-        return floor($string);
-    }
-
-    /**
-     * @param string $string
-     *
-     * @return string
-     */
-    public function ceil($string)
-    {
-        return ceil($string);
-    }
-
-    /**
-     * @param string $string
-     *
      * @return boolean
      */
     public function isNumeric($string)
     {
         return is_numeric($string);
-    }
-
-    /**
-     * @param string $string
-     *
-     * @return string
-     */
-    public function jsonEncode($string)
-    {
-        return json_encode($string);
     }
 
     /**

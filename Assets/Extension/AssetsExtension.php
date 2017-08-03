@@ -4,6 +4,8 @@ namespace AgileKernelBundle\Assets\Extension;
 
 /**
  * Class AssetsExtension
+ *
+ * @package AgileKernelBundle\Assets\Extension
  */
 abstract class AssetsExtension implements AssetsExtensionInterface
 {

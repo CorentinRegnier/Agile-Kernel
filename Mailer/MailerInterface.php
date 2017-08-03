@@ -2,8 +2,12 @@
 
 namespace AgileKernelBundle\Mailer;
 
+use FOS\UserBundle\Model\UserInterface;
+
 /**
  * Interface MailerInterface
+ *
+ * @package AgileKernelBundle\Mailer
  */
 interface MailerInterface
 {
@@ -11,7 +15,8 @@ interface MailerInterface
      * @param string       $templateName
      * @param string|array $toEmail
      * @param array        $params
-     * @param string|array $fromEmail
+     * @param string       $fromEmail
+     * @param string       $fromName
      * @param array        $attachments
      * @param string|null  $locale
      * @param array        $tags
@@ -28,17 +33,18 @@ interface MailerInterface
     );
 
     /**
-     * @param string       $templateName
-     * @param array        $params
-     * @param User         $user
-     * @param array|string $fromEmail
-     * @param array        $attachments
-     * @param array        $tags
+     * @param string        $templateName
+     * @param array         $params
+     * @param UserInterface $user
+     * @param array|string  $fromEmail
+     * @param string        $fromName
+     * @param array         $attachments
+     * @param array         $tags
      */
     public function sendToUser(
         $templateName,
         array $params = [],
-        User $user = null,
+        UserInterface $user = null,
         $fromEmail = null,
         $fromName = null,
         array $attachments = [],
@@ -50,6 +56,7 @@ interface MailerInterface
      * @param string $htmlBody
      * @param string $textBody
      * @param string $fromEmail
+     * @param string $fromName
      * @param string $toEmail
      * @param array  $attachments
      * @param array  $tags
